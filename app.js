@@ -6,6 +6,7 @@ const router = require("./src/routes/routes");
 const port = 3000;
 const app = express();
 
+app.set('trust proxy', 1);
 app.use(cors());
 app.use(bodyParser.json());
 app.use("/", router);
