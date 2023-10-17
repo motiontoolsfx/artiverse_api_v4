@@ -1,5 +1,6 @@
 const shopify = require('../config/shopify');
 const products = require('../data/product'); // Replace with the actual path
+const generateMockups = require('./generateMockups');
 
 const createProduct = async (imageBuffer, title, aspectRatio) => {
     const productInfo = products[aspectRatio];
@@ -42,14 +43,25 @@ const createProduct = async (imageBuffer, title, aspectRatio) => {
         variants: variants
     };
 
-    const product = await shopify.product.create(newProduct);
+    const [product, mockups] = await Promise.all([
+        shopify.product.create(newProduct),
+        generateMockups(imageBuffer)
+    ]);
+
     const productId = product.id;
     const productHandle = product.handle;
 
-    await shopify.productImage.create(productId, {
-        attachment: imageBuffer.toString('base64'),
-        filename: `image_${productId}.jpg`
+    const imagePromises = mockups.map((mockup, index) => {
+        const base64Image = mockup.toString('base64');
+        const filename = `image_${productId}_${index}.jpg`;
+
+        return shopify.productImage.create(productId, {
+            attachment: base64Image,
+            filename: filename
+        });
     });
+
+    await Promise.all(imagePromises);
 
     console.log('Product was successfully created');
 
