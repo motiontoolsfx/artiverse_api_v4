@@ -5,7 +5,7 @@ const generateImageTitle = async (idea) => {
         model: "gpt-3.5-turbo",
         messages: [{
             role: "assistant",
-            content: `describe this prompt "${idea}" in a few words (less than 6)`
+            content: `Describe this prompt "${idea}" in less than six words.`
         }],
         temperature: 0.35,
         max_tokens: 2048,

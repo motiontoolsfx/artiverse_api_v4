@@ -51,17 +51,19 @@ const createProduct = async (imageBuffer, title, aspectRatio) => {
     const productId = product.id;
     const productHandle = product.handle;
 
-    const imagePromises = mockups.map((mockup, index) => {
+    // Sequentially upload product images to maintain order
+    const uploadedImages = [];
+    for (let index = 0; index < mockups.length; index++) {
+        const mockup = mockups[index];
         const base64Image = mockup.toString('base64');
         const filename = `image_${productId}_${index}.jpg`;
 
-        return shopify.productImage.create(productId, {
+        const uploadedImage = await shopify.productImage.create(productId, {
             attachment: base64Image,
             filename: filename
         });
-    });
-
-    await Promise.all(imagePromises);
+        uploadedImages.push(uploadedImage);
+    }
 
     console.log('Product was successfully created');
 

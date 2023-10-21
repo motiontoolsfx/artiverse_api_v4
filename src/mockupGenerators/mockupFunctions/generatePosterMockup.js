@@ -44,8 +44,12 @@ const generatePosterMockup = async ({
         const imageWithLogo = await addArtiverseLogo({
             inputBuffer: resizedImage,
             logoBuffer: artiverseLogoBuffer,
-            padding: 4
-        })
+            padding: 0.02,
+            x1,
+            y1,
+            x2,
+            size: 0.05
+        });
 
         const imageWithShadowBrightnessContrast = await brightnessContrastEffect({
             inputBuffer: imageWithLogo,
