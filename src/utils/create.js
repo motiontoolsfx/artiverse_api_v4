@@ -1,5 +1,6 @@
 const createProduct = require("./createProduct");
 const generateImage = require("./generateImage");
+const generateImageStory = require("./generateImageStory");
 const generateImageTitle = require("./generateImageTitle");
 const uploadImageToS3 = require("./uploadImageToS3");
 
@@ -10,15 +11,16 @@ const create = async (req, res, next) => {
     } = req.body;
 
     try {
-        const [imageBuffer, titleResult] = await Promise.all([
+        const [imageBuffer, titleResult, storyResult] = await Promise.all([
             generateImage(idea, size),
-            generateImageTitle(idea)
+            generateImageTitle(idea),
+            generateImageStory(idea)
         ]);
 
         const {
             productId,
             productHandle
-        } = await createProduct(imageBuffer, titleResult, size);
+        } = await createProduct(imageBuffer, titleResult, storyResult, size);
 
         const s3Image = uploadImageToS3(imageBuffer, "image/jpeg", 'artiverseprivate', `${productId}.jpg`);
 

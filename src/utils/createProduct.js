@@ -1,8 +1,14 @@
 const shopify = require('../config/shopify');
-const products = require('../data/product'); // Replace with the actual path
+const products = require('../data/product');
 const generateMockups = require('./generateMockups');
 
-const createProduct = async (imageBuffer, title, aspectRatio) => {
+const aspectRatioNameMap = {
+    "1x1": "Square",
+    "3x2": "Landscape",
+    "2x3": "Portrait"
+}
+
+const createProduct = async (imageBuffer, title, story, aspectRatio) => {
     const productInfo = products[aspectRatio];
     if (!productInfo) {
         console.log('Invalid aspect ratio');
@@ -30,9 +36,9 @@ const createProduct = async (imageBuffer, title, aspectRatio) => {
 
     const newProduct = {
         title,
-        body_html: `Your AI image can be purchased in these print types and sizes`,
+        body_html: `<h3>Backstory</h3><div style="margin-top: 10px">${story}</div>`,
         vendor: "Artiverse",
-        product_type: "Wall Art",
+        product_type: aspectRatioNameMap[aspectRatio],
         options: [{
                 name: "Print Type"
             },
