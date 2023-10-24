@@ -61,6 +61,34 @@ const generateMockups = async (imageBuffer) => {
         }),
         generateCanvasMockup({
             imageBuffer,
+            backgroundFileName: "bedroom",
+            resize: {
+                x1: 422,
+                y1: 240,
+                x2: 662
+            },
+            lighting: {
+                brightness: 60,
+                contrast: -0.2
+            },
+            depthEffect: {
+                maxBrightenFactor: 1.5,
+                maxDarkenFactor: 0.75,
+                borderWidth: 2
+            },
+            corners: {
+                amount: 2
+            },
+            shadow: {
+                blurAmount: 4,
+                radius: 0,
+                offsetX: -5,
+                offsetY: 5,
+                opacity: 0.35
+            }
+        }),
+        generateCanvasMockup({
+            imageBuffer,
             backgroundFileName: "living_room_wall",
             resize: {
                 x1: 355,
