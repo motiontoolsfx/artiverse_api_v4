@@ -82,7 +82,7 @@ const generateMockups = async (imageBuffer) => {
             shadow: {
                 blurAmount: 4,
                 radius: 0,
-                offsetX: -5,
+                offsetX: 5,
                 offsetY: 5,
                 opacity: 0.35
             }
