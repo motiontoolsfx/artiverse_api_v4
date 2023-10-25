@@ -63,9 +63,9 @@ const generateMockups = async (imageBuffer) => {
             imageBuffer,
             backgroundFileName: "bedroom",
             resize: {
-                x1: 422,
+                x1: 362,
                 y1: 240,
-                x2: 662
+                x2: 602
             },
             lighting: {
                 brightness: 60,
@@ -82,7 +82,7 @@ const generateMockups = async (imageBuffer) => {
             shadow: {
                 blurAmount: 4,
                 radius: 0,
-                offsetX: 5,
+                offsetX: -5,
                 offsetY: 5,
                 opacity: 0.35
             }
